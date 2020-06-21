@@ -16,21 +16,70 @@ App.post("/product", function (req, res) {
   product.title = req.body.title;
   product.price = req.body.price;
 
-  product.save(function (err, savedProduct) {
+  product.save(function (err, data) {
     if (err) {
       res.status(500).send({ error: "Could not find Saved Product" });
     } else {
-      res.send(savedProduct);
+      res.send(data);
     }
   });
 });
 
 App.get("/product", function (request, response) {
-  Product.find({}, function (err, products) {
+  Product.find({}, function (error, data) {
     if (err) {
-      response.status(500).send({ error: "Could not get products" });
+      response.status(500).send({ err: "Could not get products" });
     } else {
-      response.send(products);
+      response.send(data);
+    }
+  });
+});
+
+App.post("/wishlist", function (request, response) {
+  let wishlist = new Wishlist();
+  wishlist.title = request.body.title;
+
+  wishlist.save(function (err, data) {
+    if (err) {
+      response.status(500).send({ error: "Could not create Wishlist" });
+    } else {
+      response.send(data);
+    }
+  });
+});
+
+App.get("/wishlist", function (request, response) {
+  Wishlist.find({}, function (err, data) {
+    if (err) {
+      response.status(500).send({ error: "Could not get wishlists" });
+    } else {
+      response.send(data);
+    }
+  });
+});
+
+App.put("/wishlist/product/add", function (request, response) {
+  Product.findOne({ _id: request.body.productId }, function (err, productData) {
+    if (err) {
+      response.status(500).send({ error: "Could not add product in wishlist" });
+    } else {
+      Wishlist.update(
+        { _id: request.body.wishlistId },
+        {
+          $addToSet: {
+            products: productData._id,
+          },
+        },
+        function (err, wishlistData) {
+          if (err) {
+            response
+              .status(500)
+              .send({ error: "Could not add product in wishlist" });
+          } else {
+            response.send(wishlistData);
+          }
+        }
+      );
     }
   });
 });
