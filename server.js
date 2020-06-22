@@ -2,7 +2,12 @@ const express = require("express");
 const App = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const db = mongoose.connect("mongodb://localhost/shopping-api");
+
+const db = mongoose.connect("mongodb://localhost/shopping-api", {
+  useNewUrlParser: true,
+});
+
+//importing database model from model folder
 const Product = require("./model/Product");
 const Wishlist = require("./model/Wishlist");
 
@@ -49,15 +54,18 @@ App.post("/wishlist", function (request, response) {
 });
 
 App.get("/wishlist", function (request, response) {
-  Wishlist.find({}, function (err, data) {
-    if (err) {
-      response.status(500).send({ error: "Could not get wishlists" });
-    } else {
-      response.send(data);
-    }
-  });
+  Wishlist.find({})
+    .populate({ path: "products", model: "Product" })
+    .exec(function (err, wishlistData) {
+      if (err) {
+        response.status(500).send({ error: "Could not get Wishlist" });
+      } else {
+        response.status(200).send(wishlistData);
+      }
+    });
 });
 
+//Adding Product in Wishlist
 App.put("/wishlist/product/add", function (request, response) {
   Product.findOne({ _id: request.body.productId }, function (err, productData) {
     if (err) {
@@ -76,7 +84,7 @@ App.put("/wishlist/product/add", function (request, response) {
               .status(500)
               .send({ error: "Could not add product in wishlist" });
           } else {
-            response.send(wishlistData);
+            response.send("Successfully added to Wishlist");
           }
         }
       );
@@ -85,5 +93,5 @@ App.put("/wishlist/product/add", function (request, response) {
 });
 
 App.listen(3000, function () {
-  console.log("Server listening at port");
+  console.log("Server listening at port 3000");
 });
