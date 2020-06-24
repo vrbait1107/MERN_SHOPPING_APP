@@ -2,11 +2,13 @@ const express = require("express");
 const App = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-
+const cors = require("cors");
 const db = mongoose.connect("mongodb://localhost/shopping-api", {
   useNewUrlParser: true,
 });
 
+// Cross Origin Issue
+App.use(cors());
 //importing database model from model folder
 const Product = require("./model/Product");
 const Wishlist = require("./model/Wishlist");
@@ -31,7 +33,7 @@ App.post("/product", function (req, res) {
 });
 
 App.get("/product", function (request, response) {
-  Product.find({}, function (error, data) {
+  Product.find({}, function (err, data) {
     if (err) {
       response.status(500).send({ err: "Could not get products" });
     } else {
