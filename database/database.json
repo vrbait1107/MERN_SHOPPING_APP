@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Teddy Bear",
+    "price": 24.99,
+    "imageUrl": "https://cdn.pixabay.com/photo/2020/05/22/21/06/teddy-5207189_960_720.jpg"
+  },
+  {
+    "title": "Car Toys",
+    "price": 54.99,
+    "imageUrl": "https://images.pexels.com/photos/163696/toy-car-toy-box-mini-163696.jpeg"
+  },
+  {
+    "title": "Robot Toys",
+    "price": 14.99,
+    "imageUrl": "https://images.unsplash.com/photo-1546776230-bb86256870ce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=439&q=80"
+  }
+]
