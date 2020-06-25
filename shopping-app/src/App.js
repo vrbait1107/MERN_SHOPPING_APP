@@ -40,11 +40,7 @@ class App extends React.Component {
   productList = () => {
     const list = this.state.products.map((product) => (
       <div className="col-md-4" key={product._id}>
-        <ProductCart
-          title={product.title}
-          price={product.price}
-          imageUrl={product.imageUrl}
-        />
+        <ProductCart product={product} />
       </div>
     ));
     return list;
