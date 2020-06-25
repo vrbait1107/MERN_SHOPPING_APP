@@ -12,14 +12,14 @@ const ProductCart = (props) => {
       />
       <Card.Body>
         <Card.Title className="text-center text-primary">
-          <h3>{props.title}</h3>
+          <h3 className="font-time">{props.title}</h3>
         </Card.Title>
-        <Card.Text>
-          <h5 className="text-center">Price: ${props.price}</h5>
-          <Button variant="primary" block>
-            Add to Wishlist
-          </Button>
-        </Card.Text>
+
+        <h5 className="text-center">Price: ${props.price}</h5>
+
+        <Button variant="primary" block>
+          Add to Wishlist
+        </Button>
       </Card.Body>
     </Card>
   );

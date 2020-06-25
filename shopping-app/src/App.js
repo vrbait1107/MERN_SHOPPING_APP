@@ -1,8 +1,16 @@
 import React from "react";
+
+// # HTTP Services
 import httpService from "./services/HttpService";
-import axios from "axios";
-import { Container, Row } from "react-bootstrap";
+
+// # React-Bootstrp Component
+import { Container, Row, Col } from "react-bootstrap";
+
+// # Components
 import ProductCart from "./components/ProductCart";
+import WishlistProducts from "./components/WishlistProducts";
+
+import "./App.css";
 
 const http = new httpService();
 
@@ -10,6 +18,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { products: [] };
+  }
+
+  componentDidMount() {
     this.loadData();
   }
 
@@ -41,9 +52,18 @@ class App extends React.Component {
 
   render() {
     return (
-      <Container className="mt-5">
-        <h3 className="text-center text-uppercase mb-3">Products Cart</h3>
-        <Row>{this.productList()}</Row>
+      <Container className="mt-5" fluid>
+        <h2 className="text-center text-uppercase font-weight-bold mb-5">
+          Shopping App
+        </h2>
+        <Row>
+          <Col md={8}>
+            <Row>{this.productList()}</Row>
+          </Col>
+          <Col md={4}>
+            <WishlistProducts />
+          </Col>
+        </Row>
       </Container>
     );
   }
