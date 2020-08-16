@@ -1,3 +1,6 @@
+### This repository based on/inspired by Ultimate Web Development online course by Mark Price on Udemy with some modification. 
+<hr/>
+
 ## MERN APP
 
 1. This is Simple Shopping App in Which we can add products and remove products.
